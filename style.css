@@ -4,9 +4,13 @@ padding:0;
 box-sizing:border-box;
 }
 
+html{
+scroll-behavior:smooth;
+}
+
 body{
-font-family:Arial,sans-serif;
-background:#071426;
+font-family:'Poppins',sans-serif;
+background:#050816;
 color:white;
 overflow-x:hidden;
 }
@@ -14,171 +18,197 @@ overflow-x:hidden;
 .hero{
 position:relative;
 min-height:100vh;
-background:url("https://images.unsplash.com/photo-1506126613408-eca07ce68773?auto=format&fit=crop&w=1600&q=80");
-background-size:cover;
-background-position:center;
-}
 
-.overlay{
-position:absolute;
-inset:0;
-background:rgba(0,0,0,.65);
-}
-
-.hero-content{
-position:relative;
-z-index:2;
-min-height:100vh;
 display:flex;
 align-items:center;
 justify-content:center;
-gap:40px;
-max-width:1400px;
-margin:auto;
-padding:30px;
+
+padding:40px;
+
+background:
+radial-gradient(circle at top left,#3b0764 0%,transparent 40%),
+radial-gradient(circle at bottom right,#1d4ed8 0%,transparent 40%),
+#050816;
+
+overflow:hidden;
 }
 
-.problem-box,
-.solution-box{
-width:260px;
-background:rgba(255,255,255,.08);
-backdrop-filter:blur(12px);
-padding:25px;
-border-radius:20px;
-}
+.hero-container{
+position:relative;
+z-index:10;
 
-.problem-box h3{
-color:#ff8f8f;
-margin-bottom:15px;
-}
+max-width:900px;
 
-.solution-box h3{
-color:#7cff98;
-margin-bottom:15px;
-}
-
-.problem-box li,
-.solution-box li{
-list-style:none;
-margin:15px 0;
-font-size:18px;
-}
-
-.center-box{
-max-width:650px;
 text-align:center;
 }
 
 .badge{
 display:inline-block;
-padding:10px 18px;
+
+padding:12px 20px;
+
+border:1px solid rgba(255,255,255,.15);
+
+background:rgba(255,255,255,.05);
+
+backdrop-filter:blur(12px);
+
 border-radius:50px;
-background:#7c3aed;
+
+font-size:14px;
+
 margin-bottom:25px;
 }
 
-.center-box h1{
-font-size:56px;
-line-height:1.2;
-margin-bottom:20px;
+.hero h1{
+
+font-size:64px;
+
+line-height:1.15;
+
+font-weight:700;
+
+margin-bottom:25px;
+
 }
 
-.center-box p{
+.subtitle{
+
 font-size:22px;
-opacity:.9;
-margin-bottom:30px;
-}
 
-.btn{
-display:inline-block;
-background:#7c3aed;
-padding:16px 34px;
-border-radius:12px;
-color:white;
-text-decoration:none;
-font-size:18px;
-font-weight:bold;
-}
+line-height:1.8;
 
-.container{
-width:90%;
-max-width:1200px;
+color:#cbd5e1;
+
+max-width:800px;
+
 margin:auto;
-}
 
-.services,
-.process,
-.cta{
-padding:90px 20px;
-}
-
-.services h2,
-.process h2,
-.cta h2{
-text-align:center;
-font-size:42px;
 margin-bottom:40px;
+
 }
 
-.cards{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+.cta-buttons{
+
+display:flex;
+
+justify-content:center;
+
 gap:20px;
+
+flex-wrap:wrap;
+
 }
 
-.card{
-background:#111f36;
-padding:30px;
-border-radius:18px;
-text-align:center;
-font-size:20px;
+.btn-primary{
+
+background:#7c3aed;
+
+color:white;
+
+padding:18px 32px;
+
+border-radius:14px;
+
+text-decoration:none;
+
+font-weight:600;
+
+transition:.3s;
+
 }
 
-.steps{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-gap:20px;
+.btn-primary:hover{
+
+transform:translateY(-3px);
+
 }
 
-.step{
-background:#111f36;
-padding:30px;
-border-radius:18px;
-text-align:center;
-font-size:20px;
+.btn-secondary{
+
+border:1px solid rgba(255,255,255,.2);
+
+background:rgba(255,255,255,.05);
+
+color:white;
+
+padding:18px 32px;
+
+border-radius:14px;
+
+text-decoration:none;
+
+transition:.3s;
+
 }
 
-.cta{
-text-align:center;
-background:#0c1c33;
+.btn-secondary:hover{
+
+transform:translateY(-3px);
+
 }
 
-@media(max-width:900px){
+.glow{
 
-.hero-content{
-flex-direction:column;
-padding-top:100px;
-padding-bottom:100px;
+position:absolute;
+
+border-radius:50%;
+
+filter:blur(100px);
+
 }
 
-.problem-box,
-.solution-box{
-width:100%;
-max-width:450px;
+.glow1{
+
+width:300px;
+height:300px;
+
+background:#7c3aed;
+
+top:-50px;
+left:-50px;
+
 }
 
-.center-box h1{
-font-size:36px;
+.glow2{
+
+width:300px;
+height:300px;
+
+background:#2563eb;
+
+bottom:-50px;
+right:-50px;
+
 }
 
-.center-box p{
+@media(max-width:768px){
+
+.hero h1{
+
+font-size:38px;
+
+}
+
+.subtitle{
+
 font-size:18px;
+
 }
 
-.services h2,
-.process h2,
-.cta h2{
-font-size:30px;
+.badge{
+
+font-size:12px;
+
+}
+
+.btn-primary,
+.btn-secondary{
+
+width:100%;
+
+max-width:320px;
+
 }
 
 }
