@@ -375,3 +375,40 @@ font-size:24px;
 color:#cbd5e1;
 line-height:1.6;
 }
+
+.why-us{
+padding:120px 20px;
+background:#050816;
+text-align:center;
+}
+
+.why-heading{
+font-size:48px;
+margin-bottom:50px;
+}
+
+.why-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:25px;
+max-width:1200px;
+margin:auto;
+}
+
+.why-card{
+background:rgba(255,255,255,.05);
+padding:35px;
+border-radius:24px;
+border:1px solid rgba(255,255,255,.08);
+font-size:40px;
+}
+
+.why-card h3{
+font-size:24px;
+margin:20px 0;
+}
+
+.why-card p{
+color:#cbd5e1;
+line-height:1.7;
+}
