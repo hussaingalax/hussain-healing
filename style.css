@@ -284,3 +284,42 @@ transform:rotate(90deg);
 }
 
 }
+
+.audience{
+padding:120px 20px;
+background:#050816;
+}
+
+.audience-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+gap:30px;
+max-width:1000px;
+margin:auto;
+}
+
+.audience-card{
+background:rgba(255,255,255,.05);
+border:1px solid rgba(255,255,255,.08);
+padding:35px;
+border-radius:24px;
+}
+
+.audience-card h3{
+font-size:28px;
+margin-bottom:25px;
+}
+
+.audience-card ul{
+list-style:none;
+}
+
+.audience-card li{
+margin:14px 0;
+color:#cbd5e1;
+}
+
+.featured{
+border:1px solid rgba(124,58,237,.45);
+box-shadow:0 0 40px rgba(124,58,237,.15);
+}
