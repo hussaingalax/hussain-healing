@@ -476,3 +476,36 @@ font-size:22px;
 color:#cbd5e1;
 line-height:1.8;
 }
+
+.final-cta{
+padding:120px 20px;
+background:#050816;
+}
+
+.cta-box{
+max-width:900px;
+margin:auto;
+text-align:center;
+padding:60px;
+border-radius:30px;
+
+background:
+linear-gradient(
+135deg,
+rgba(124,58,237,.15),
+rgba(37,99,235,.15)
+);
+
+border:1px solid rgba(255,255,255,.08);
+}
+
+.cta-box h2{
+font-size:48px;
+margin-bottom:20px;
+}
+
+.cta-box p{
+font-size:20px;
+color:#cbd5e1;
+margin-bottom:35px;
+}
