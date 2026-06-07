@@ -222,7 +222,9 @@ text-align:center;
 .section-title{
 color:#7c3aed;
 font-weight:600;
-margin-bottom:15px;
+text-align:center;
+font-size:18px;  
+margin-bottom:20px;
 }
 
 .transformation h2{
