@@ -311,17 +311,7 @@ font-size:18px;
 font-size:50px;
 color:#7c3aed;
 }
-@media(max-width:768px){
 
-.transformation h2{
-font-size:30px;
-}
-
-.arrow{
-transform:rotate(90deg);
-}
-
-}
 
 .audience{
 padding:120px 20px;
