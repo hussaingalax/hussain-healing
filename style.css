@@ -249,30 +249,6 @@ padding:35px 20px;
 font-size:18px;
 }
 
-}
-
-.subtitle{
-
-font-size:18px;
-
-}
-
-.badge{
-
-font-size:12px;
-
-}
-
-.btn-primary,
-.btn-secondary{
-
-width:100%;
-
-max-width:320px;
-
-}
-
-}
 
 .transformation{
 padding:120px 20px;
@@ -335,7 +311,7 @@ font-size:18px;
 font-size:50px;
 color:#7c3aed;
 }
-
+}
 @media(max-width:768px){
 
 .transformation h2{
