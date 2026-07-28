@@ -708,3 +708,45 @@ color:#8b5cf6;
 margin:10px 0;
 
 }
+
+.payment-card{
+
+background:#1d2335;
+
+padding:20px;
+
+border-radius:15px;
+
+text-align:center;
+
+margin:20px 0;
+
+}
+
+.payment-card h1{
+
+font-size:48px;
+
+margin:10px 0;
+
+}
+
+#payment-modal input{
+
+width:100%;
+
+padding:12px;
+
+margin-top:10px;
+
+border-radius:8px;
+
+border:none;
+
+}
+
+#payment-modal img{
+
+border-radius:10px;
+
+}
