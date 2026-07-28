@@ -61,6 +61,7 @@ const modal = document.getElementById("booking-modal");
 
 const bookingButtons = [
     "whatsapp-btn",
+    "cta-booking-btn",
     "floating-whatsapp",
     "footer-whatsapp"
 ];
