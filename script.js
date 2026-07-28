@@ -120,26 +120,36 @@ console.log("Saving booking...");
         return;
     }
 
-    alert("Booking submitted successfully!");
+ alert("Booking submitted successfully!");
+
+// Form values
+const customerName = document.getElementById("customer-name").value;
+const mobile = document.getElementById("customer-mobile").value;
+const city = document.getElementById("customer-city").value;
+
+// Healer WhatsApp
+const { data: healerData } = await db
+    .from("healers")
+    .select("whatsapp")
+    .eq("id", healer.id)
+    .single();
 
 const message =
 `வணக்கம்.
 
-பெயர் : ${customer-name}
+பெயர் : ${customerName}
 மொபைல் : ${mobile}
 ஊர் : ${city}
 
 எனக்கு இலவச ஆரம்ப ஆலோசனை வேண்டும்.`;
 
 window.open(
-`https://wa.me/91${data.whatsapp}?text=${encodeURIComponent(message)}`,
+`https://wa.me/91${healerData.whatsapp}?text=${encodeURIComponent(message)}`,
 "_blank"
 );
 
 modal.style.display = "none";
-
 document.getElementById("booking-form").reset();
-
     modal.style.display = "none";
 
 });
