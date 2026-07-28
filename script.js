@@ -86,15 +86,41 @@ sessionModal.style.display="none";
 
 };
 
-document.getElementById("online-session").onclick=function(){
+const paymentModal = document.getElementById("payment-modal");
 
-alert("Online Session Selected");
+document.getElementById("online-session").onclick = function () {
+
+    document.getElementById("selected-session").innerText =
+        "🟢 Online Session";
+
+    document.getElementById("payment-amount").innerText =
+    "₹299";
+
+modal.style.display = "none";      // <-- NEW LINE
+
+paymentModal.style.display = "block";
 
 };
 
-document.getElementById("direct-session").onclick=function(){
+document.getElementById("direct-session").onclick = function () {
 
-alert("Direct Session Selected");
+    document.getElementById("selected-session").innerText =
+        "⭐ Direct Session";
+
+    document.getElementById("payment-amount").innerText =
+    "₹799";
+
+modal.style.display = "none";      // <-- NEW LINE
+
+paymentModal.style.display = "block";
+
+};
+
+document.getElementById("close-payment").onclick = function () {
+
+    paymentModal.style.display = "none";
+
+};
 
 };
     if(e.target == modal){
