@@ -454,6 +454,85 @@
     </div>
 
 </div>
+
+<!-- Payment Modal -->
+
+<div id="payment-modal" class="modal">
+
+    <div class="modal-content">
+
+        <span id="close-payment" class="close">&times;</span>
+
+        <h2>💳 Session Fee செலுத்துங்கள்</h2>
+
+        <p style="text-align:center;">
+            உங்கள் Booking கிட்டத்தட்ட முடிந்துவிட்டது.
+        </p>
+
+        <div class="payment-card">
+
+            <h3 id="selected-session">
+                Online Session
+            </h3>
+
+            <p style="text-decoration:line-through;color:#999;">
+                ₹5000
+            </p>
+
+            <h1 id="payment-amount"
+                style="color:#8B5CF6;">
+                ₹299
+            </h1>
+
+            <p style="color:limegreen;font-weight:bold;">
+                First Visit Offer
+            </p>
+
+        </div>
+
+        <hr>
+
+        <h3>UPI ID</h3>
+
+        <input
+            type="text"
+            value="hussaingalax@okhdfcbank"
+            readonly>
+
+        <br><br>
+
+        <img
+            src="images/payment-qr.png"
+            id="payment-qr"
+            style="width:220px;
+            display:block;
+            margin:auto;">
+
+        <br>
+
+        <input
+            id="transaction-id"
+            placeholder="Transaction ID (Optional)">
+
+        <br><br>
+
+        <input
+            type="file"
+            id="payment-image">
+
+        <br><br>
+
+        <button
+            id="payment-submit"
+            class="btn-primary">
+
+            நான் Payment செய்துவிட்டேன்
+
+        </button>
+
+    </div>
+
+</div>
   
 </footer>
 
