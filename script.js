@@ -51,6 +51,8 @@ document.getElementById("footer-whatsapp").href = waLink;
 
 loadHealer();
 
+console.log("Booking Popup JS Loaded");
+
 // Booking Popup
 
 const modal = document.getElementById("booking-modal");
