@@ -69,7 +69,7 @@ const bookingButtons = [
 bookingButtons.forEach(function(id){
 
     const btn = document.getElementById(id);
-
+console.log("Found Button:", id, btn);
     if(btn){
 
         btn.addEventListener("click", function(e){
