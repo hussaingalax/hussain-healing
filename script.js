@@ -57,14 +57,30 @@ console.log("Booking Popup JS Loaded");
 
 const modal = document.getElementById("booking-modal");
 
-document.getElementById("whatsapp-btn").addEventListener("click", function(e){
+// All Booking Buttons
 
-    console.log("Hero button clicked");
+const bookingButtons = [
+    "whatsapp-btn",
+    "floating-whatsapp",
+    "footer-whatsapp"
+];
 
-    e.preventDefault();
-    e.stopPropagation();
+bookingButtons.forEach(function(id){
 
-    modal.style.display = "block";
+    const btn = document.getElementById(id);
+
+    if(btn){
+
+        btn.addEventListener("click", function(e){
+
+            e.preventDefault();
+            e.stopPropagation();
+
+            modal.style.display = "block";
+
+        });
+
+    }
 
 });
 document.getElementById("close-modal").onclick=function(){
