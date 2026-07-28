@@ -149,7 +149,9 @@ window.open(
 );
 
 modal.style.display = "none";
+
 document.getElementById("booking-form").reset();
-    modal.style.display = "none";
+
+document.getElementById("session-modal").style.display = "block";
 
 });
