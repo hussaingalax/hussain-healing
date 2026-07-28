@@ -86,3 +86,44 @@ window.onclick = function(e){
     }
 
 };
+
+// Booking Form Submit
+
+document.getElementById("booking-form").addEventListener("submit", async function(e){
+
+    e.preventDefault();
+
+    const { data: healer } = await db
+        .from("healers")
+        .select("id")
+        .eq("slug", window.location.hostname.split(".")[0])
+        .single();
+
+    const { error } = await db
+        .from("bookings")
+        .insert([
+            {
+                healer_id: healer.id,
+                customer_name: document.getElementById("customer-name").value,
+                mobile: document.getElementById("customer-mobile").value,
+                city: document.getElementById("customer-city").value,
+                problem: document.getElementById("customer-problem").value,
+                status: "New"
+            }
+        ]);
+
+    if(error){
+
+        console.error(error);
+        alert("Booking failed!");
+
+        return;
+    }
+
+    alert("Booking submitted successfully!");
+
+    document.getElementById("booking-form").reset();
+
+    modal.style.display = "none";
+
+});
