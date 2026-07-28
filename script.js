@@ -35,7 +35,17 @@ if (data.photo_url) {
     document.getElementById("healer-photo").src = data.photo_url;
 }
 
+// WhatsApp Link
+const message = encodeURIComponent(
+    "வணக்கம். Website மூலம் வந்தேன். எனக்கு இலவச ஆரம்ப ஆலோசனை வேண்டும்."
+);
 
+const waLink =
+`https://wa.me/91${data.whatsapp}?text=${message}`;
+
+document.getElementById("whatsapp-btn").href = waLink;
+document.getElementById("floating-whatsapp").href = waLink;
+document.getElementById("footer-whatsapp").href = waLink;
     
 }
 
