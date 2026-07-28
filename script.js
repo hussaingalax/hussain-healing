@@ -122,7 +122,23 @@ console.log("Saving booking...");
 
     alert("Booking submitted successfully!");
 
-    document.getElementById("booking-form").reset();
+const message =
+`வணக்கம்.
+
+பெயர் : ${customerName}
+மொபைல் : ${mobile}
+ஊர் : ${city}
+
+எனக்கு இலவச ஆரம்ப ஆலோசனை வேண்டும்.`;
+
+window.open(
+`https://wa.me/91${data.whatsapp}?text=${encodeURIComponent(message)}`,
+"_blank"
+);
+
+modal.style.display = "none";
+
+document.getElementById("booking-form").reset();
 
     modal.style.display = "none";
 
