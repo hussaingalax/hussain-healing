@@ -78,7 +78,25 @@ document.getElementById("close-modal").onclick = function(){
 };
 
 window.onclick = function(e){
+const sessionModal = document.getElementById("session-modal");
 
+document.getElementById("close-session-modal").onclick=function(){
+
+sessionModal.style.display="none";
+
+};
+
+document.getElementById("online-session").onclick=function(){
+
+alert("Online Session Selected");
+
+};
+
+document.getElementById("direct-session").onclick=function(){
+
+alert("Direct Session Selected");
+
+};
     if(e.target == modal){
 
         modal.style.display = "none";
