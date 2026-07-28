@@ -686,3 +686,25 @@ cursor:pointer;
 color:white;
 
 }
+
+.session-card{
+
+background:#20263a;
+
+padding:20px;
+
+border-radius:12px;
+
+margin-top:15px;
+
+text-align:center;
+
+}
+
+.session-card h2{
+
+color:#8b5cf6;
+
+margin:10px 0;
+
+}
