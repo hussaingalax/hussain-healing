@@ -90,15 +90,15 @@ window.onclick = function(e){
 // Booking Form Submit
 
 document.getElementById("booking-form").addEventListener("submit", async function(e){
-
+console.log("Booking Started");
     e.preventDefault();
-
+console.log("Finding healer...");
     const { data: healer } = await db
         .from("healers")
         .select("id")
         .eq("slug", window.location.hostname.split(".")[0])
         .single();
-
+console.log("Saving booking...");
     const { error } = await db
         .from("bookings")
         .insert([
