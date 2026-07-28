@@ -57,13 +57,14 @@ console.log("Booking Popup JS Loaded");
 
 const modal = document.getElementById("booking-modal");
 
-document.getElementById("whatsapp-btn").onclick = function(e){
+document.getElementById("whatsapp-btn").addEventListener("click", function(e){
 
-e.preventDefault();
+    e.preventDefault();
+    e.stopPropagation();
 
-modal.style.display="block";
+    modal.style.display = "block";
 
-};
+});
 
 document.getElementById("close-modal").onclick=function(){
 
