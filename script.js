@@ -125,7 +125,7 @@ console.log("Saving booking...");
 const message =
 `வணக்கம்.
 
-பெயர் : ${customerName}
+பெயர் : ${customer-name}
 மொபைல் : ${mobile}
 ஊர் : ${city}
 
