@@ -34,6 +34,8 @@ document.getElementById("hero-subtitle").textContent = data.hero_subtitle;
 if (data.photo_url) {
     document.getElementById("healer-photo").src = data.photo_url;
 }
+
+
     
 }
 
