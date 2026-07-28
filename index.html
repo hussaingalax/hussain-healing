@@ -365,6 +365,48 @@ WhatsApp
 
 </div>
 
+<!-- Booking Modal -->
+<div id="booking-modal" class="modal">
+
+    <div class="modal-content">
+
+        <span id="close-modal" class="close">&times;</span>
+
+        <h2>இலவச ஆரம்ப ஆலோசனை</h2>
+
+        <form id="booking-form">
+
+            <input
+                type="text"
+                id="customer-name"
+                placeholder="உங்கள் பெயர்"
+                required>
+
+            <input
+                type="tel"
+                id="customer-mobile"
+                placeholder="மொபைல் எண்"
+                required>
+
+            <input
+                type="text"
+                id="customer-city"
+                placeholder="ஊர் / நகரம்">
+
+            <textarea
+                id="customer-problem"
+                placeholder="உங்கள் பிரச்சனை (Optional)"></textarea>
+
+            <button type="submit" class="btn-primary">
+                Booking Submit
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+  
 </footer>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
