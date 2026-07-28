@@ -59,13 +59,14 @@ const modal = document.getElementById("booking-modal");
 
 document.getElementById("whatsapp-btn").addEventListener("click", function(e){
 
+    console.log("Hero button clicked");
+
     e.preventDefault();
     e.stopPropagation();
 
     modal.style.display = "block";
 
 });
-
 document.getElementById("close-modal").onclick=function(){
 
 modal.style.display="none";
