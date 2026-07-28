@@ -50,3 +50,31 @@ document.getElementById("footer-whatsapp").href = waLink;
 }
 
 loadHealer();
+
+// Booking Popup
+
+const modal = document.getElementById("booking-modal");
+
+document.getElementById("whatsapp-btn").onclick = function(e){
+
+e.preventDefault();
+
+modal.style.display="block";
+
+};
+
+document.getElementById("close-modal").onclick=function(){
+
+modal.style.display="none";
+
+};
+
+window.onclick=function(e){
+
+if(e.target==modal){
+
+modal.style.display="none";
+
+}
+
+};
