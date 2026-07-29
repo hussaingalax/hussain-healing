@@ -77,52 +77,10 @@ document.getElementById("close-modal").onclick = function(){
 
 };
 
+// Close Booking Modal
+
 window.onclick = function(e){
-const sessionModal = document.getElementById("session-modal");
 
-document.getElementById("close-session-modal").onclick=function(){
-
-sessionModal.style.display="none";
-
-};
-
-const paymentModal = document.getElementById("payment-modal");
-
-document.getElementById("online-session").onclick = function () {
-
-    document.getElementById("selected-session").innerText =
-        "🟢 Online Session";
-
-    document.getElementById("payment-amount").innerText =
-    "₹299";
-
-modal.style.display = "none";      // <-- NEW LINE
-
-paymentModal.style.display = "block";
-
-};
-
-document.getElementById("direct-session").onclick = function () {
-
-    document.getElementById("selected-session").innerText =
-        "⭐ Direct Session";
-
-    document.getElementById("payment-amount").innerText =
-    "₹799";
-
-modal.style.display = "none";      // <-- NEW LINE
-
-paymentModal.style.display = "block";
-
-};
-
-document.getElementById("close-payment").onclick = function () {
-
-    paymentModal.style.display = "none";
-
-};
-
-};
     if(e.target == modal){
 
         modal.style.display = "none";
@@ -131,8 +89,59 @@ document.getElementById("close-payment").onclick = function () {
 
 };
 
-// Booking Form Submit
+// =======================
+// Session Modal
+// =======================
 
+const sessionModal = document.getElementById("session-modal");
+
+document.getElementById("close-session-modal").onclick = function(){
+
+    sessionModal.style.display = "none";
+
+};
+
+// =======================
+// Payment Modal
+// =======================
+
+const paymentModal = document.getElementById("payment-modal");
+
+document.getElementById("online-session").onclick = function(){
+
+    document.getElementById("selected-session").innerText =
+    "🟢 Online Session";
+
+    document.getElementById("payment-amount").innerText =
+    "₹299";
+
+    sessionModal.style.display = "none";
+
+    paymentModal.style.display = "block";
+
+};
+
+document.getElementById("direct-session").onclick = function(){
+
+    document.getElementById("selected-session").innerText =
+    "⭐ Direct Session";
+
+    document.getElementById("payment-amount").innerText =
+    "₹799";
+
+    sessionModal.style.display = "none";
+
+    paymentModal.style.display = "block";
+
+};
+
+document.getElementById("close-payment").onclick = function(){
+
+    paymentModal.style.display = "none";
+
+};
+
+// Booking Form Submit
 document.getElementById("booking-form").addEventListener("submit", async function(e){
 console.log("Booking Started");
     e.preventDefault();
