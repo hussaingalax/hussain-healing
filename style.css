@@ -666,6 +666,9 @@ max-width:500px;
 margin:80px auto;
 padding:30px;
 border-radius:20px;
+    max-height: 90vh;
+overflow-y: auto;
+overflow-x: hidden;
 }
 
 .modal-content input,
