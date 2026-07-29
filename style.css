@@ -766,3 +766,39 @@ border:none;
 border-radius:10px;
 
 }
+
+@media (max-width:768px){
+
+.modal-content{
+
+max-height:calc(100vh - 30px);
+
+overflow-y:auto;
+
+margin:15px auto;
+
+}
+
+.payment-card img{
+
+max-width:200px;
+
+width:100%;
+
+height:auto;
+
+}
+
+}
+
+.payment-content{
+
+max-width:520px;
+
+max-height:90vh;
+
+overflow-y:auto;
+
+padding:25px;
+
+}
