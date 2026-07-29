@@ -208,3 +208,9 @@ document.getElementById("booking-form").reset();
 document.getElementById("session-modal").style.display = "block";
 
 });
+
+document.getElementById("payment-submit").onclick = async function () {
+
+    alert("Payment Received!");
+
+};
