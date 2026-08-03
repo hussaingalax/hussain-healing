@@ -254,3 +254,87 @@ async function loadAvailableSlots(){
     };
 
 }
+
+// ===========================
+// Payment Submit
+// ===========================
+
+document.getElementById("payment-submit").onclick = async function () {
+
+    const bookingDate =
+        document.getElementById("booking-date").value;
+
+    const bookingTime =
+        document.getElementById("booking-time").value;
+
+    if(!bookingDate){
+
+        alert("Appointment Date தேர்வு செய்யுங்கள்");
+        return;
+
+    }
+
+    if(!bookingTime){
+
+        alert("Appointment Time தேர்வு செய்யுங்கள்");
+        return;
+
+    }
+
+    const transactionId =
+        document.getElementById("transaction-id").value;
+
+    const image =
+        document.getElementById("payment-image").files[0];
+
+    const { data: booking } = await db
+        .from("bookings")
+        .insert([{
+
+            healer_id: bookingData.healer.id,
+            customer_name: bookingData.customerName,
+            mobile: bookingData.mobile,
+            city: bookingData.city,
+            problem: bookingData.problem,
+            booking_date: bookingDate,
+            booking_time: bookingTime,
+            status: "New",
+            payment_status: "Pending"
+
+        }])
+        .select()
+        .single();
+
+    bookingData.bookingId = booking.id;
+
+    const message =
+`Payment Submitted
+
+Booking ID : ${booking.id}
+
+Name : ${bookingData.customerName}
+
+Mobile : ${bookingData.mobile}
+
+Session : ${bookingData.session}
+
+Amount : ₹${bookingData.amount}
+
+Date : ${bookingDate}
+
+Time : ${bookingTime}
+
+Transaction ID : ${transactionId || "Not Entered"}
+
+Screenshot : ${image ? image.name : "Not Uploaded"}`;
+
+    window.open(
+`https://wa.me/91${bookingData.healer.whatsapp}?text=${encodeURIComponent(message)}`,
+"_blank"
+    );
+
+    alert("Details submitted successfully!");
+
+    paymentModal.style.display = "none";
+
+};
