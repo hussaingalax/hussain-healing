@@ -161,4 +161,36 @@ document.getElementById("close-payment").onclick = function(){
     paymentModal.style.display = "none";
 
 };
+// ==========================
+// Booking Form
+// ==========================
 
+document.getElementById("booking-form").addEventListener("submit", async function(e){
+
+    e.preventDefault();
+
+    bookingData.customerName =
+        document.getElementById("customer-name").value;
+
+    bookingData.mobile =
+        document.getElementById("customer-mobile").value;
+
+    bookingData.city =
+        document.getElementById("customer-city").value;
+
+    bookingData.problem =
+        document.getElementById("customer-problem").value;
+
+    const { data: healer } = await db
+        .from("healers")
+        .select("*")
+        .eq("slug", window.location.hostname.split(".")[0])
+        .single();
+
+    bookingData.healer = healer;
+
+    modal.style.display = "none";
+
+    sessionModal.style.display = "block";
+
+});
