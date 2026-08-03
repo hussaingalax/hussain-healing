@@ -132,6 +132,7 @@ document.getElementById("direct-session").onclick = function(){
     sessionModal.style.display = "none";
 
     paymentModal.style.display = "block";
+    loadAvailableSlots();
 
 };
 
@@ -141,76 +142,3 @@ document.getElementById("close-payment").onclick = function(){
 
 };
 
-// Booking Form Submit
-document.getElementById("booking-form").addEventListener("submit", async function(e){
-console.log("Booking Started");
-    e.preventDefault();
-console.log("Finding healer...");
-    const { data: healer } = await db
-        .from("healers")
-        .select("id")
-        .eq("slug", window.location.hostname.split(".")[0])
-        .single();
-console.log("Saving booking...");
-    const { error } = await db
-        .from("bookings")
-        .insert([
-            {
-                healer_id: healer.id,
-                customer_name: document.getElementById("customer-name").value,
-                mobile: document.getElementById("customer-mobile").value,
-                city: document.getElementById("customer-city").value,
-                problem: document.getElementById("customer-problem").value,
-                status: "New"
-            }
-        ]);
-
-    if(error){
-
-        console.error(error);
-        alert("Booking failed!");
-
-        return;
-    }
-
- alert("Booking submitted successfully!");
-
-// Form values
-const customerName = document.getElementById("customer-name").value;
-const mobile = document.getElementById("customer-mobile").value;
-const city = document.getElementById("customer-city").value;
-
-// Healer WhatsApp
-const { data: healerData } = await db
-    .from("healers")
-    .select("whatsapp")
-    .eq("id", healer.id)
-    .single();
-
-const message =
-`வணக்கம்.
-
-பெயர் : ${customerName}
-மொபைல் : ${mobile}
-ஊர் : ${city}
-
-எனக்கு இலவச ஆரம்ப ஆலோசனை வேண்டும்.`;
-
-window.open(
-`https://wa.me/91${healerData.whatsapp}?text=${encodeURIComponent(message)}`,
-"_blank"
-);
-
-modal.style.display = "none";
-
-document.getElementById("booking-form").reset();
-
-document.getElementById("session-modal").style.display = "block";
-
-});
-
-document.getElementById("payment-submit").onclick = async function () {
-
-    alert("Payment Received!");
-
-};
