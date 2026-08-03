@@ -50,7 +50,20 @@ document.getElementById("footer-whatsapp").href = waLink;
 }
 
 loadHealer();
+// ==========================
+// Global Booking Variables
+// ==========================
 
+let bookingData = {
+    healer: null,
+    session: "",
+    amount: 0,
+    customerName: "",
+    mobile: "",
+    city: "",
+    problem: "",
+    bookingId: null
+};
 console.log("Booking Popup JS Loaded");
 
 // Booking Popup
@@ -109,6 +122,9 @@ const paymentModal = document.getElementById("payment-modal");
 
 document.getElementById("online-session").onclick = function(){
 
+    bookingData.session = "Online";
+    bookingData.amount = 299;
+
     document.getElementById("selected-session").innerText =
     "🟢 Online Session";
 
@@ -119,9 +135,13 @@ document.getElementById("online-session").onclick = function(){
 
     paymentModal.style.display = "block";
 
-};
+    loadAvailableSlots();
 
+};
 document.getElementById("direct-session").onclick = function(){
+
+    bookingData.session = "Direct";
+    bookingData.amount = 799;
 
     document.getElementById("selected-session").innerText =
     "⭐ Direct Session";
@@ -132,10 +152,10 @@ document.getElementById("direct-session").onclick = function(){
     sessionModal.style.display = "none";
 
     paymentModal.style.display = "block";
+
     loadAvailableSlots();
 
 };
-
 document.getElementById("close-payment").onclick = function(){
 
     paymentModal.style.display = "none";
