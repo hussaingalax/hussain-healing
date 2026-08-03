@@ -305,7 +305,17 @@ document.getElementById("payment-submit").onclick = async function () {
         .select()
         .single();
 
-    bookingData.bookingId = booking.id;
+    if (!booking) {
+
+    alert("Booking save failed");
+
+    console.error("Booking Insert Failed");
+
+    return;
+
+}
+
+bookingData.bookingId = booking.id;
 
     const message =
 `Payment Submitted
