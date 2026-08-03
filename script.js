@@ -194,3 +194,63 @@ document.getElementById("booking-form").addEventListener("submit", async functio
     sessionModal.style.display = "block";
 
 });
+
+// ===========================
+// Load Available Slots
+// ===========================
+
+async function loadAvailableSlots(){
+
+    const { data, error } = await db
+        .from("slots")
+        .select("*")
+        .eq("healer_id", bookingData.healer.id)
+        .eq("status","Available")
+        .order("slot_date")
+        .order("slot_time");
+
+    if(error){
+        console.error(error);
+        return;
+    }
+
+    const dateSelect =
+        document.getElementById("booking-date");
+
+    const timeSelect =
+        document.getElementById("booking-time");
+
+    dateSelect.innerHTML =
+        '<option value="">தேதி தேர்வு செய்யுங்கள்</option>';
+
+    timeSelect.innerHTML =
+        '<option value="">நேரம் தேர்வு செய்யுங்கள்</option>';
+
+    const dates = [...new Set(data.map(x=>x.slot_date))];
+
+    dates.forEach(date=>{
+
+        dateSelect.innerHTML +=
+        `<option value="${date}">${date}</option>`;
+
+    });
+
+    dateSelect.onchange=function(){
+
+        timeSelect.innerHTML =
+        '<option value="">நேரம் தேர்வு செய்யுங்கள்</option>';
+
+        data
+        .filter(x=>x.slot_date==this.value)
+        .forEach(slot=>{
+
+            timeSelect.innerHTML +=
+            `<option value="${slot.slot_time}">
+                ${slot.slot_time}
+            </option>`;
+
+        });
+
+    };
+
+}
