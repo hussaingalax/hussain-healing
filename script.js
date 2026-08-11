@@ -64,6 +64,28 @@ let bookingData = {
     problem: "",
     bookingId: null
 };
+
+// ===========================
+// Simple Booking Reference
+// ===========================
+
+function generateBookingRef(){
+
+    const chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+
+    let ref = "MH";
+
+    for(let i = 0; i < 6; i++){
+
+        ref += chars.charAt(
+            Math.floor(Math.random() * chars.length)
+        );
+
+    }
+
+    return ref;
+}
+
 console.log("Booking Popup JS Loaded");
 
 // Booking Popup
