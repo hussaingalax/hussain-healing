@@ -223,24 +223,8 @@ document.getElementById("booking-form").addEventListener("submit", async functio
 
 async function loadAvailableSlots(){
 
-    const { data, error } = await db
-        .from("slots")
-        .select("*")
-        .eq("healer_id", bookingData.healer.id)
-        .eq("status","Available")
-        .order("slot_date")
-        .order("slot_time");
-
-    if(error){
-        console.error(error);
-        return;
-    }
-
-    const dateSelect =
-        document.getElementById("booking-date");
-
-    const timeSelect =
-        document.getElementById("booking-time");
+    const dateSelect = document.getElementById("booking-date");
+    const timeSelect = document.getElementById("booking-time");
 
     dateSelect.innerHTML =
         '<option value="">தேதி தேர்வு செய்யுங்கள்</option>';
@@ -248,32 +232,101 @@ async function loadAvailableSlots(){
     timeSelect.innerHTML =
         '<option value="">நேரம் தேர்வு செய்யுங்கள்</option>';
 
-    const dates = [...new Set(data.map(x=>x.slot_date))];
+    const today = new Date();
 
-    dates.forEach(date=>{
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, "0");
+    const day = String(today.getDate()).padStart(2, "0");
 
-        dateSelect.innerHTML +=
-        `<option value="${date}">${date}</option>`;
+    const todayString = `${year}-${month}-${day}`;
+
+    console.log("Today:", todayString);
+
+    const { data: slots, error } = await db
+        .from("slots")
+        .select("*")
+        .eq("healer_id", bookingData.healer.id)
+        .eq("status", "Available")
+        .gte("slot_date", todayString)
+        .order("slot_date", { ascending: true })
+        .order("slot_time", { ascending: true });
+
+    if(error){
+
+        console.error("Slot Error:", error);
+
+        return;
+    }
+
+    console.log("Available Future Slots:", slots);
+
+    if(!slots || slots.length === 0){
+
+        dateSelect.innerHTML =
+            '<option value="">தற்போது slots இல்லை</option>';
+
+        return;
+    }
+
+    // Unique dates
+    const dates = [
+        ...new Set(
+            slots.map(slot => slot.slot_date)
+        )
+    ];
+
+    dates.forEach(date => {
+
+        const option = document.createElement("option");
+
+        option.value = date;
+        option.textContent = date;
+
+        dateSelect.appendChild(option);
 
     });
 
-    dateSelect.onchange=function(){
+    // First available date
+    dateSelect.value = dates[0];
 
-        timeSelect.innerHTML =
-        '<option value="">நேரம் தேர்வு செய்யுங்கள்</option>';
+    loadTimesForDate(dates[0], slots);
 
-        data
-        .filter(x=>x.slot_date==this.value)
-        .forEach(slot=>{
+    dateSelect.onchange = function(){
 
-            timeSelect.innerHTML +=
-            `<option value="${slot.slot_time}">
-                ${slot.slot_time}
-            </option>`;
-
-        });
+        loadTimesForDate(
+            this.value,
+            slots
+        );
 
     };
+
+}
+
+function loadTimesForDate(date, slots){
+
+    const timeSelect =
+        document.getElementById("booking-time");
+
+    timeSelect.innerHTML =
+        '<option value="">நேரம் தேர்வு செய்யுங்கள்</option>';
+
+    const selectedSlots =
+        slots.filter(slot =>
+            slot.slot_date === date
+        );
+
+    selectedSlots.forEach(slot => {
+
+        const option =
+            document.createElement("option");
+
+        option.value = slot.slot_time;
+
+        option.textContent = slot.slot_time;
+
+        timeSelect.appendChild(option);
+
+    });
 
 }
 
