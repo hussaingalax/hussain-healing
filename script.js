@@ -392,7 +392,20 @@ if(bookingError){
 
     return;
 }
-        
+
+    // Mark selected slot as Booked
+const { error: slotError } = await db
+    .from("slots")
+    .update({
+        status: "Booked"
+    })
+    .eq("healer_id", bookingData.healer.id)
+    .eq("slot_date", bookingDate)
+    .eq("slot_time", bookingTime);
+
+if (slotError) {
+    console.error("Slot Update Error:", slotError);
+}
 
 bookingData.bookingId = booking.id;
 
@@ -428,3 +441,5 @@ Please verify and confirm the appointment.`;
     paymentModal.style.display = "none";
 
 };
+
+
