@@ -380,6 +380,9 @@ document.getElementById("payment-submit").onclick = async function () {
             session_type: bookingData.session,
             amount: bookingData.amount,
             transaction_id: transactionId,
+        }])
+        .select()
+        .single();
 
 if(bookingError){
 
@@ -390,10 +393,6 @@ if(bookingError){
     return;
 }
         
-        }])
-        .select()
-        .single();
-
     if (!booking) {
 
     alert("Booking save failed");
