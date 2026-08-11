@@ -211,6 +211,9 @@ document.getElementById("booking-form").addEventListener("submit", async functio
 
     bookingData.healer = healer;
 
+// Clear old customer form values
+document.getElementById("booking-form").reset();
+    
     modal.style.display = "none";
 
     sessionModal.style.display = "block";
