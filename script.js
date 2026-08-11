@@ -393,15 +393,6 @@ if(bookingError){
     return;
 }
         
-    if (!booking) {
-
-    alert("Booking save failed");
-
-    console.error("Booking Insert Failed");
-
-    return;
-
-}
 
 bookingData.bookingId = booking.id;
 
