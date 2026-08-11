@@ -363,7 +363,7 @@ document.getElementById("payment-submit").onclick = async function () {
         document.getElementById("payment-image").files[0];
 
     const bookingRef = generateBookingRef();
-    const { data: booking } = await db
+    const { data: booking, error: bookingError } = await db
         .from("bookings")
         .insert([{
 
