@@ -376,10 +376,10 @@ document.getElementById("payment-submit").onclick = async function () {
             booking_date: bookingDate,
             booking_time: bookingTime,
             status: "New",
-            payment_status: "Pending"
+            payment_status: "Pending",
             session_type: bookingData.session,
             amount: bookingData.amount,
-            transaction_id: transactionId,
+            transaction_id: transactionId
         }])
         .select()
         .single();
