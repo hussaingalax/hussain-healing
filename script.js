@@ -377,7 +377,19 @@ document.getElementById("payment-submit").onclick = async function () {
             booking_time: bookingTime,
             status: "New",
             payment_status: "Pending"
+            session_type: bookingData.session,
+            amount: bookingData.amount,
+            transaction_id: transactionId,
 
+if(bookingError){
+
+    console.error("Booking Save Error:", bookingError);
+
+    alert("Booking save ஆகவில்லை. தயவுசெய்து மீண்டும் முயற்சி செய்யுங்கள்.");
+
+    return;
+}
+        
         }])
         .select()
         .single();
@@ -413,7 +425,8 @@ Time : ${bookingTime}
 
 Transaction ID : ${transactionId || "Not Entered"}
 
-Screenshot : ${image ? image.name : "Not Uploaded"}`;
+Payment details submitted successfully.
+Please verify and confirm the appointment.`;
 
     window.open(
 `https://wa.me/91${bookingData.healer.whatsapp}?text=${encodeURIComponent(message)}`,
