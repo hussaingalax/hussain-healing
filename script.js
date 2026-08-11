@@ -292,6 +292,7 @@ document.getElementById("payment-submit").onclick = async function () {
         .from("bookings")
         .insert([{
 
+            booking_ref: bookingRef,
             healer_id: bookingData.healer.id,
             customer_name: bookingData.customerName,
             mobile: bookingData.mobile,
@@ -321,7 +322,7 @@ bookingData.bookingId = booking.id;
     const message =
 `Payment Submitted
 
-Booking ID : ${booking.id}
+Booking ID : ${bookingRef}
 
 Name : ${bookingData.customerName}
 
