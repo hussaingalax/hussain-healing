@@ -2,15 +2,8 @@
 // MAHASHAKTHI HEALING - ADMIN LOGIN
 // =========================================
 
-const SUPABASE_URL = window.SUPABASE_URL;
-const SUPABASE_ANON_KEY = window.SUPABASE_ANON_KEY;
-
-const { createClient } = supabase;
-
-const db = createClient(
-    SUPABASE_URL,
-    SUPABASE_ANON_KEY
-);
+// Supabase client is already created in supabase.js
+// as: db
 
 const loginForm = document.getElementById("loginForm");
 const emailInput = document.getElementById("email");
@@ -36,6 +29,7 @@ loginForm.addEventListener("submit", async (event) => {
     }
 
     setLoading(true);
+    showMessage("");
 
     try {
 
@@ -53,7 +47,7 @@ loginForm.addEventListener("submit", async (event) => {
             throw new Error("Login failed. User not found.");
         }
 
-        // Check whether this user is an active admin
+        // Check admin_users table
         const { data: adminUser, error: adminError } = await db
             .from("admin_users")
             .select("id, name, email, role, status, auth_user_id")
@@ -89,7 +83,7 @@ loginForm.addEventListener("submit", async (event) => {
 
         showMessage("Login successful. Opening dashboard...");
 
-        // Dashboard will be created in the next step
+        // Dashboard will be created next
         setTimeout(() => {
             window.location.href = "admin-dashboard.html";
         }, 700);
@@ -184,6 +178,7 @@ function setLoading(isLoading) {
     } else {
 
         loginBtn.textContent = "Login";
+
     }
 }
 
