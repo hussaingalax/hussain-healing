@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Admin Dashboard - MahaShakthi Healing</title>
+
+    <link rel="stylesheet" href="admin-dashboard.css">
+</head>
+
+<body>
+
+    <!-- =========================================
+         ADMIN DASHBOARD
+         ========================================= -->
+
+    <div class="dashboard">
+
+        <!-- Sidebar -->
+        <aside class="sidebar">
+
+            <div class="sidebar-logo">
+                <img
+                    src="images/mh-logo.png"
+                    alt="MahaShakthi Healing"
+                >
+
+                <h2>MahaShakthi</h2>
+                <span>Healing Admin</span>
+            </div>
+
+            <nav class="sidebar-nav">
+
+                <button
+                    class="nav-item active"
+                    id="bookingsNav"
+                    type="button"
+                >
+                    <span>📋</span>
+                    Bookings
+                </button>
+
+                <button
+                    class="nav-item"
+                    id="paymentsNav"
+                    type="button"
+                >
+                    <span>💳</span>
+                    Payments
+                </button>
+
+                <button
+                    class="nav-item"
+                    id="healersNav"
+                    type="button"
+                >
+                    <span>👤</span>
+                    Healers
+                </button>
+
+            </nav>
+
+            <div class="sidebar-bottom">
+
+                <button
+                    class="logout-btn"
+                    id="logoutBtn"
+                    type="button"
+                >
+                    <span>↪</span>
+                    Logout
+                </button>
+
+            </div>
+
+        </aside>
+
+
+        <!-- Main Content -->
+        <main class="main-content">
+
+            <!-- Top Header -->
+            <header class="top-header">
+
+                <div>
+                    <h1>Bookings</h1>
+
+                    <p id="welcomeText">
+                        Welcome to MahaShakthi Healing Admin
+                    </p>
+                </div>
+
+                <div class="admin-profile">
+
+                    <div class="profile-avatar">
+                        H
+                    </div>
+
+                    <div class="profile-info">
+
+                        <strong id="adminName">
+                            Admin
+                        </strong>
+
+                        <span id="adminRole">
+                            Super Admin
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </header>
+
+
+            <!-- Summary Cards -->
+            <section class="summary-grid">
+
+                <div class="summary-card">
+                    <span class="summary-label">
+                        Total Bookings
+                    </span>
+
+                    <strong
+                        id="totalBookings"
+                        class="summary-number"
+                    >
+                        0
+                    </strong>
+                </div>
+
+
+                <div class="summary-card">
+                    <span class="summary-label">
+                        New Bookings
+                    </span>
+
+                    <strong
+                        id="newBookings"
+                        class="summary-number"
+                    >
+                        0
+                    </strong>
+                </div>
+
+
+                <div class="summary-card">
+                    <span class="summary-label">
+                        Payment Pending
+                    </span>
+
+                    <strong
+                        id="pendingPayments"
+                        class="summary-number"
+                    >
+                        0
+                    </strong>
+                </div>
+
+
+                <div class="summary-card">
+                    <span class="summary-label">
+                        Confirmed
+                    </span>
+
+                    <strong
+                        id="confirmedBookings"
+                        class="summary-number"
+                    >
+                        0
+                    </strong>
+                </div>
+
+            </section>
+
+
+            <!-- Bookings Section -->
+            <section class="bookings-section">
+
+                <div class="section-header">
+
+                    <div>
+                        <h2>All Bookings</h2>
+
+                        <p>
+                            Manage customer appointments
+                        </p>
+                    </div>
+
+                    <div class="section-actions">
+
+                        <button
+                            id="refreshBtn"
+                            class="refresh-btn"
+                            type="button"
+                        >
+                            ↻ Refresh
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Loading -->
+                <div
+                    id="loadingState"
+                    class="loading-state"
+                >
+                    Loading bookings...
+                </div>
+
+
+                <!-- Error -->
+                <div
+                    id="errorState"
+                    class="error-state"
+                    style="display: none;"
+                >
+                </div>
+
+
+                <!-- Empty -->
+                <div
+                    id="emptyState"
+                    class="empty-state"
+                    style="display: none;"
+                >
+                    <div class="empty-icon">
+                        📋
+                    </div>
+
+                    <h3>No bookings found</h3>
+
+                    <p>
+                        Customer bookings will appear here.
+                    </p>
+                </div>
+
+
+                <!-- Bookings Table -->
+                <div
+                    id="tableContainer"
+                    class="table-container"
+                    style="display: none;"
+                >
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+
+                                <th>Booking</th>
+
+                                <th>Customer</th>
+
+                                <th>Date / Time</th>
+
+                                <th>Session</th>
+
+                                <th>Amount</th>
+
+                                <th>Payment</th>
+
+                                <th>Status</th>
+
+                                <th>Action</th>
+
+                            </tr>
+
+                        </thead>
+
+                        <tbody id="bookingsTableBody">
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </section>
+
+        </main>
+
+    </div>
+
+
+    <!-- =========================================
+         BOOKING VIEW MODAL
+         ========================================= -->
+
+    <div
+        id="bookingModal"
+        class="modal"
+        style="display: none;"
+    >
+
+        <div class="modal-overlay" id="modalOverlay"></div>
+
+        <div class="modal-card">
+
+            <div class="modal-header">
+
+                <div>
+                    <h2>Booking Details</h2>
+
+                    <p id="modalBookingRef">
+                        Booking
+                    </p>
+                </div>
+
+                <button
+                    id="closeModalBtn"
+                    class="close-modal"
+                    type="button"
+                >
+                    ×
+                </button>
+
+            </div>
+
+
+            <div
+                id="bookingDetails"
+                class="booking-details"
+            >
+            </div>
+
+
+            <div class="modal-footer">
+
+                <button
+                    id="modalCloseBtn"
+                    class="modal-close-btn"
+                    type="button"
+                >
+                    Close
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================================
+         SUPABASE
+         ========================================= -->
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script src="config.js"></script>
+
+    <script src="supabase.js"></script>
+
+    <script src="admin-dashboard.js"></script>
+
+</body>
+</html>
