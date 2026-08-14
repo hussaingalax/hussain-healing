@@ -35,11 +35,13 @@ if (data.photo_url) {
     document.getElementById("healer-photo").src = data.photo_url;
 }
 
+    
 // WhatsApp Link
 const message = encodeURIComponent(
     "வணக்கம். Website மூலம் வந்தேன். எனக்கு இலவச ஆரம்ப ஆலோசனை வேண்டும்."
 );
 
+    window.currentHealerWhatsApp = data.whatsapp;
 const waLink =
 `https://wa.me/91${data.whatsapp}?text=${message}`;
 
@@ -445,4 +447,301 @@ Please verify and confirm the appointment.`;
 
 };
 
+// =========================================
+// TALK ON WHATSAPP - CONTACT FORM
+// =========================================
 
+const ctaWhatsAppBtn =
+    document.getElementById("cta-whatsapp-btn");
+
+if (ctaWhatsAppBtn) {
+
+    ctaWhatsAppBtn.addEventListener(
+        "click",
+        function (event) {
+
+            event.preventDefault();
+
+            const modal = document.createElement("div");
+
+            modal.style.cssText = `
+                position: fixed;
+                inset: 0;
+                background: rgba(0,0,0,0.65);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 99999;
+                padding: 20px;
+            `;
+
+
+            modal.innerHTML = `
+                <div style="
+                    width: 100%;
+                    max-width: 420px;
+                    background: #ffffff;
+                    border-radius: 18px;
+                    padding: 24px;
+                    box-sizing: border-box;
+                    box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+                ">
+
+                    <div style="
+                        display:flex;
+                        justify-content:space-between;
+                        align-items:center;
+                        margin-bottom:18px;
+                    ">
+
+                        <div>
+                            <h3 style="
+                                margin:0 0 5px;
+                                font-size:22px;
+                                color:#111827;
+                            ">
+                                Start a Conversation
+                            </h3>
+
+                            <p style="
+                                margin:0;
+                                font-size:14px;
+                                color:#6b7280;
+                            ">
+                                Tell us briefly how we can help.
+                            </p>
+                        </div>
+
+                        <button
+                            id="closeWhatsAppForm"
+                            type="button"
+                            style="
+                                border:0;
+                                background:#f3f4f6;
+                                width:36px;
+                                height:36px;
+                                border-radius:50%;
+                                font-size:22px;
+                                cursor:pointer;
+                            "
+                        >
+                            ×
+                        </button>
+
+                    </div>
+
+
+                    <label style="
+                        display:block;
+                        margin-bottom:6px;
+                        font-size:14px;
+                        font-weight:600;
+                        color:#374151;
+                    ">
+                        Your Name
+                    </label>
+
+                    <input
+                        id="waName"
+                        type="text"
+                        placeholder="Enter your name"
+                        style="
+                            width:100%;
+                            box-sizing:border-box;
+                            padding:13px;
+                            border:1px solid #d1d5db;
+                            border-radius:10px;
+                            margin-bottom:14px;
+                            font-size:15px;
+                        "
+                    >
+
+
+                    <label style="
+                        display:block;
+                        margin-bottom:6px;
+                        font-size:14px;
+                        font-weight:600;
+                        color:#374151;
+                    ">
+                        WhatsApp Number
+                    </label>
+
+                    <input
+                        id="waMobile"
+                        type="tel"
+                        placeholder="Enter your WhatsApp number"
+                        style="
+                            width:100%;
+                            box-sizing:border-box;
+                            padding:13px;
+                            border:1px solid #d1d5db;
+                            border-radius:10px;
+                            margin-bottom:14px;
+                            font-size:15px;
+                        "
+                    >
+
+
+                    <label style="
+                        display:block;
+                        margin-bottom:6px;
+                        font-size:14px;
+                        font-weight:600;
+                        color:#374151;
+                    ">
+                        How can we help you?
+                    </label>
+
+                    <textarea
+                        id="waConcern"
+                        rows="4"
+                        placeholder="Tell us briefly about your concern..."
+                        style="
+                            width:100%;
+                            box-sizing:border-box;
+                            padding:13px;
+                            border:1px solid #d1d5db;
+                            border-radius:10px;
+                            margin-bottom:18px;
+                            font-size:15px;
+                            resize:vertical;
+                        "
+                    ></textarea>
+
+
+                    <button
+                        id="continueWhatsApp"
+                        type="button"
+                        style="
+                            width:100%;
+                            border:0;
+                            background:#25D366;
+                            color:#ffffff;
+                            padding:14px;
+                            border-radius:10px;
+                            font-size:16px;
+                            font-weight:600;
+                            cursor:pointer;
+                        "
+                    >
+                        Continue to WhatsApp
+                    </button>
+
+                </div>
+            `;
+
+
+            document.body.appendChild(modal);
+
+
+            // Close
+
+            document
+                .getElementById("closeWhatsAppForm")
+                .addEventListener(
+                    "click",
+                    function () {
+                        modal.remove();
+                    }
+                );
+
+
+            // Continue to WhatsApp
+
+            document
+                .getElementById("continueWhatsApp")
+                .addEventListener(
+                    "click",
+                    function () {
+
+                        const name =
+                            document
+                                .getElementById("waName")
+                                .value
+                                .trim();
+
+                        const mobile =
+                            document
+                                .getElementById("waMobile")
+                                .value
+                                .trim();
+
+                        const concern =
+                            document
+                                .getElementById("waConcern")
+                                .value
+                                .trim();
+
+
+                        if (!name) {
+
+                            alert(
+                                "Please enter your name."
+                            );
+
+                            return;
+                        }
+
+
+                        if (!mobile) {
+
+                            alert(
+                                "Please enter your WhatsApp number."
+                            );
+
+                            return;
+                        }
+
+
+                        if (!concern) {
+
+                            alert(
+                                "Please tell us briefly how we can help."
+                            );
+
+                            return;
+                        }
+
+
+                        if (
+                            !window.currentHealerWhatsApp
+                        ) {
+
+                            alert(
+                                "WhatsApp contact is currently unavailable."
+                            );
+
+                            return;
+                        }
+
+
+                        const message =
+`Hi, I am ${name}.
+
+My WhatsApp Number: ${mobile}
+
+I would like to know more about the healing session.
+
+My concern:
+${concern}`;
+
+
+                        const whatsappUrl =
+                            `https://wa.me/91${window.currentHealerWhatsApp}?text=${encodeURIComponent(message)}`;
+
+
+                        window.open(
+                            whatsappUrl,
+                            "_blank"
+                        );
+
+
+                        modal.remove();
+
+                    }
+                );
+
+        }
+    );
+}
