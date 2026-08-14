@@ -479,6 +479,201 @@
                 </div>
 
             </section>
+
+<!-- =========================================
+     HEALERS SECTION
+     ========================================= -->
+
+<section
+    id="healersSection"
+    class="bookings-section"
+    style="display: none;"
+>
+
+    <div class="section-header">
+
+        <div>
+            <h2>Healers</h2>
+
+            <p>
+                Manage MahaShakthi Healing healers
+            </p>
+        </div>
+
+        <div class="section-actions">
+
+            <button
+                id="refreshHealersBtn"
+                class="refresh-btn"
+                type="button"
+            >
+                ↻ Refresh
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- Healers Summary -->
+
+    <div
+        class="summary-grid"
+        style="margin-bottom: 24px;"
+    >
+
+        <div class="summary-card">
+
+            <span class="summary-label">
+                Total Healers
+            </span>
+
+            <strong
+                id="totalHealers"
+                class="summary-number"
+            >
+                0
+            </strong>
+
+        </div>
+
+
+        <div class="summary-card">
+
+            <span class="summary-label">
+                Active Healers
+            </span>
+
+            <strong
+                id="activeHealers"
+                class="summary-number"
+            >
+                0
+            </strong>
+
+        </div>
+
+
+        <div class="summary-card">
+
+            <span class="summary-label">
+                Inactive Healers
+            </span>
+
+            <strong
+                id="inactiveHealers"
+                class="summary-number"
+            >
+                0
+            </strong>
+
+        </div>
+
+
+        <div class="summary-card">
+
+            <span class="summary-label">
+                Available Languages
+            </span>
+
+            <strong
+                id="healerLanguages"
+                class="summary-number"
+            >
+                0
+            </strong>
+
+        </div>
+
+    </div>
+
+
+    <!-- Healers Loading -->
+
+    <div
+        id="healersLoadingState"
+        class="loading-state"
+        style="display: none;"
+    >
+        Loading healers...
+    </div>
+
+
+    <!-- Healers Error -->
+
+    <div
+        id="healersErrorState"
+        class="error-state"
+        style="display: none;"
+    >
+    </div>
+
+
+    <!-- Empty Healers -->
+
+    <div
+        id="healersEmptyState"
+        class="empty-state"
+        style="display: none;"
+    >
+
+        <div class="empty-icon">
+            👤
+        </div>
+
+        <h3>No healers found</h3>
+
+        <p>
+            Healer records will appear here.
+        </p>
+
+    </div>
+
+
+    <!-- Healers Table -->
+
+    <div
+        id="healersTableContainer"
+        class="table-container"
+        style="display: none;"
+    >
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>Photo</th>
+
+                    <th>Name</th>
+
+                    <th>Experience</th>
+
+                    <th>Languages</th>
+
+                    <th>WhatsApp</th>
+
+                    <th>Timings</th>
+
+                    <th>Status</th>
+
+                    <th>Action</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody
+                id="healersTableBody"
+            >
+            </tbody>
+
+        </table>
+
+    </div>
+
+</section>
             
         </main>
 
