@@ -1003,3 +1003,486 @@ function escapeHtml(value) {
         .replace(/"/g, "&quot;")
         .replace(/'/g, "&#039;");
 }
+
+// =========================================
+// PAYMENTS SECTION
+// =========================================
+
+let paymentsData = [];
+
+
+// -----------------------------------------
+// OPEN PAYMENTS SECTION
+// -----------------------------------------
+
+async function openPaymentsSection() {
+
+    const sections =
+        document.querySelectorAll(".bookings-section");
+
+    const bookingsSection = sections[0];
+
+    const paymentsSection =
+        document.getElementById("paymentsSection");
+
+    const bookingsNav =
+        document.getElementById("bookingsNav");
+
+    const paymentsNav =
+        document.getElementById("paymentsNav");
+
+    if (!paymentsSection) {
+        console.error("Payments section not found.");
+        return;
+    }
+
+    // Hide bookings
+    if (bookingsSection) {
+        bookingsSection.style.display = "none";
+    }
+
+    // Show payments
+    paymentsSection.style.display = "block";
+
+    // Navigation active state
+    if (bookingsNav) {
+        bookingsNav.classList.remove("active");
+    }
+
+    if (paymentsNav) {
+        paymentsNav.classList.add("active");
+    }
+
+    // Change page heading
+    const pageTitle =
+        document.querySelector(".top-header h1");
+
+    const welcomeText =
+        document.getElementById("welcomeText");
+
+    if (pageTitle) {
+        pageTitle.textContent = "Payments";
+    }
+
+    if (welcomeText) {
+        welcomeText.textContent =
+            "Manage and verify customer payments";
+    }
+
+    // Load payment records
+    await loadPayments();
+}
+
+
+// -----------------------------------------
+// OPEN BOOKINGS SECTION
+// -----------------------------------------
+
+function openBookingsSection() {
+
+    const sections =
+        document.querySelectorAll(".bookings-section");
+
+    const bookingsSection = sections[0];
+
+    const paymentsSection =
+        document.getElementById("paymentsSection");
+
+    const bookingsNav =
+        document.getElementById("bookingsNav");
+
+    const paymentsNav =
+        document.getElementById("paymentsNav");
+
+    if (bookingsSection) {
+        bookingsSection.style.display = "block";
+    }
+
+    if (paymentsSection) {
+        paymentsSection.style.display = "none";
+    }
+
+    if (bookingsNav) {
+        bookingsNav.classList.add("active");
+    }
+
+    if (paymentsNav) {
+        paymentsNav.classList.remove("active");
+    }
+
+    const pageTitle =
+        document.querySelector(".top-header h1");
+
+    const welcomeText =
+        document.getElementById("welcomeText");
+
+    if (pageTitle) {
+        pageTitle.textContent = "Bookings";
+    }
+
+    if (welcomeText) {
+        welcomeText.textContent =
+            "Welcome to MahaShakthi Healing Admin";
+    }
+}
+
+
+// -----------------------------------------
+// LOAD PAYMENTS
+// -----------------------------------------
+
+async function loadPayments() {
+
+    const loadingState =
+        document.getElementById("paymentsLoadingState");
+
+    const errorState =
+        document.getElementById("paymentsErrorState");
+
+    const emptyState =
+        document.getElementById("paymentsEmptyState");
+
+    const tableContainer =
+        document.getElementById("paymentsTableContainer");
+
+    const tableBody =
+        document.getElementById("paymentsTableBody");
+
+    if (!tableBody) {
+        console.error("Payments table body not found.");
+        return;
+    }
+
+    // Reset states
+    if (loadingState) {
+        loadingState.style.display = "block";
+    }
+
+    if (errorState) {
+        errorState.style.display = "none";
+    }
+
+    if (emptyState) {
+        emptyState.style.display = "none";
+    }
+
+    if (tableContainer) {
+        tableContainer.style.display = "none";
+    }
+
+    try {
+
+        const { data, error } = await db
+            .from("bookings")
+            .select("*")
+            .order("created_at", {
+                ascending: false
+            });
+
+        if (error) {
+            throw error;
+        }
+
+        paymentsData = data || [];
+
+        renderPaymentSummary(paymentsData);
+
+        renderPaymentsTable(paymentsData);
+
+        if (loadingState) {
+            loadingState.style.display = "none";
+        }
+
+        if (!paymentsData.length) {
+
+            if (emptyState) {
+                emptyState.style.display = "block";
+            }
+
+            return;
+        }
+
+        if (tableContainer) {
+            tableContainer.style.display = "block";
+        }
+
+    } catch (error) {
+
+        console.error(
+            "Payments loading error:",
+            error
+        );
+
+        if (loadingState) {
+            loadingState.style.display = "none";
+        }
+
+        if (errorState) {
+            errorState.textContent =
+                "Failed to load payments. Please try again.";
+
+            errorState.style.display = "block";
+        }
+    }
+}
+
+
+// -----------------------------------------
+// PAYMENT SUMMARY
+// -----------------------------------------
+
+function renderPaymentSummary(data) {
+
+    const totalPayments =
+        document.getElementById("totalPayments");
+
+    const paymentsPending =
+        document.getElementById("paymentsPending");
+
+    const paymentsConfirmed =
+        document.getElementById("paymentsConfirmed");
+
+    const totalPaymentAmount =
+        document.getElementById("totalPaymentAmount");
+
+
+    const total =
+        data.length;
+
+
+    const pending =
+        data.filter(
+            booking =>
+                normalizeStatus(
+                    booking.payment_status
+                ) === "pending"
+        ).length;
+
+
+    const confirmed =
+        data.filter(
+            booking =>
+                normalizeStatus(
+                    booking.payment_status
+                ) === "confirmed"
+        ).length;
+
+
+    const totalAmount =
+        data.reduce(
+            (sum, booking) => {
+
+                const amount =
+                    Number(booking.amount) || 0;
+
+                return sum + amount;
+
+            },
+            0
+        );
+
+
+    if (totalPayments) {
+        totalPayments.textContent = total;
+    }
+
+    if (paymentsPending) {
+        paymentsPending.textContent = pending;
+    }
+
+    if (paymentsConfirmed) {
+        paymentsConfirmed.textContent = confirmed;
+    }
+
+    if (totalPaymentAmount) {
+        totalPaymentAmount.textContent =
+            `₹${totalAmount.toLocaleString("en-IN")}`;
+    }
+}
+
+
+// -----------------------------------------
+// RENDER PAYMENTS TABLE
+// -----------------------------------------
+
+function renderPaymentsTable(data) {
+
+    const tableBody =
+        document.getElementById("paymentsTableBody");
+
+    if (!tableBody) {
+        return;
+    }
+
+    tableBody.innerHTML = "";
+
+
+    data.forEach(booking => {
+
+        const bookingRef =
+            booking.booking_ref ||
+            shortId(booking.id);
+
+
+        const customerName =
+            booking.customer_name ||
+            "—";
+
+
+        const mobile =
+            booking.mobile ||
+            "";
+
+
+        const transactionId =
+            booking.transaction_id ||
+            "—";
+
+
+        const amount =
+            booking.amount !== null &&
+            booking.amount !== undefined
+                ? `₹${booking.amount}`
+                : "—";
+
+
+        const paymentStatus =
+            booking.payment_status ||
+            "Pending";
+
+
+        const row =
+            document.createElement("tr");
+
+
+        row.innerHTML = `
+
+            <td>
+                <strong>
+                    ${escapeHtml(bookingRef)}
+                </strong>
+            </td>
+
+            <td>
+                <strong>
+                    ${escapeHtml(customerName)}
+                </strong>
+
+                <small style="
+                    display:block;
+                    margin-top:3px;
+                    color:#777;
+                ">
+                    ${escapeHtml(mobile)}
+                </small>
+            </td>
+
+            <td>
+                ${escapeHtml(transactionId)}
+            </td>
+
+            <td>
+                ${formatDate(booking.booking_date)}
+            </td>
+
+            <td>
+                ${escapeHtml(
+                    booking.session_type || "—"
+                )}
+            </td>
+
+            <td>
+                ${amount}
+            </td>
+
+            <td>
+                ${createPaymentBadge(paymentStatus)}
+            </td>
+
+            <td>
+
+                <button
+                    type="button"
+                    class="view-btn"
+                    onclick="openPaymentBooking('${booking.id}')"
+                >
+                    View
+                </button>
+
+            </td>
+        `;
+
+
+        tableBody.appendChild(row);
+
+    });
+}
+
+
+// -----------------------------------------
+// OPEN PAYMENT BOOKING
+// -----------------------------------------
+
+function openPaymentBooking(bookingId) {
+
+    const booking =
+        paymentsData.find(
+            item => item.id === bookingId
+        );
+
+    if (!booking) {
+
+        console.error(
+            "Payment booking not found:",
+            bookingId
+        );
+
+        return;
+    }
+
+    openBookingModal(booking);
+}
+
+
+// -----------------------------------------
+// NAVIGATION EVENTS
+// -----------------------------------------
+
+const paymentsNav =
+    document.getElementById("paymentsNav");
+
+const bookingsNav =
+    document.getElementById("bookingsNav");
+
+const refreshPaymentsBtn =
+    document.getElementById("refreshPaymentsBtn");
+
+
+if (paymentsNav) {
+
+    paymentsNav.addEventListener(
+        "click",
+        openPaymentsSection
+    );
+
+}
+
+
+if (bookingsNav) {
+
+    bookingsNav.addEventListener(
+        "click",
+        openBookingsSection
+    );
+
+}
+
+
+if (refreshPaymentsBtn) {
+
+    refreshPaymentsBtn.addEventListener(
+        "click",
+        loadPayments
+    );
+
+}
