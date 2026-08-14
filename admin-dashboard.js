@@ -1516,3 +1516,578 @@ if (refreshPaymentsBtn) {
     );
 
 }
+
+
+// =========================================
+// HEALERS SECTION
+// =========================================
+
+let healersData = [];
+
+
+// -----------------------------------------
+// OPEN HEALERS SECTION
+// -----------------------------------------
+
+async function openHealersSection() {
+
+    const sections =
+        document.querySelectorAll(".bookings-section");
+
+    const bookingsSection = sections[0];
+
+    const paymentsSection =
+        document.getElementById("paymentsSection");
+
+    const healersSection =
+        document.getElementById("healersSection");
+
+    const bookingsNav =
+        document.getElementById("bookingsNav");
+
+    const paymentsNav =
+        document.getElementById("paymentsNav");
+
+    const healersNav =
+        document.getElementById("healersNav");
+
+
+    if (!healersSection) {
+        console.error("Healers section not found.");
+        return;
+    }
+
+
+    // Hide other sections
+
+    if (bookingsSection) {
+        bookingsSection.style.display = "none";
+    }
+
+    if (paymentsSection) {
+        paymentsSection.style.display = "none";
+    }
+
+
+    // Show healers
+
+    healersSection.style.display = "block";
+
+
+    // Navigation active state
+
+    if (bookingsNav) {
+        bookingsNav.classList.remove("active");
+    }
+
+    if (paymentsNav) {
+        paymentsNav.classList.remove("active");
+    }
+
+    if (healersNav) {
+        healersNav.classList.add("active");
+    }
+
+
+    // Hide Booking summary cards
+
+    const mainSummaryGrid =
+        document.querySelector(
+            ".main-content > .summary-grid"
+        );
+
+    if (mainSummaryGrid) {
+        mainSummaryGrid.style.display = "none";
+    }
+
+
+    // Change heading
+
+    const pageTitle =
+        document.querySelector(
+            ".top-header h1"
+        );
+
+    const welcomeText =
+        document.getElementById(
+            "welcomeText"
+        );
+
+
+    if (pageTitle) {
+        pageTitle.textContent = "Healers";
+    }
+
+
+    if (welcomeText) {
+        welcomeText.textContent =
+            "Manage MahaShakthi Healing healers";
+    }
+
+
+    // Load healer records
+
+    await loadHealers();
+}
+
+
+// -----------------------------------------
+// LOAD HEALERS
+// -----------------------------------------
+
+async function loadHealers() {
+
+    const loadingState =
+        document.getElementById(
+            "healersLoadingState"
+        );
+
+    const errorState =
+        document.getElementById(
+            "healersErrorState"
+        );
+
+    const emptyState =
+        document.getElementById(
+            "healersEmptyState"
+        );
+
+    const tableContainer =
+        document.getElementById(
+            "healersTableContainer"
+        );
+
+    const tableBody =
+        document.getElementById(
+            "healersTableBody"
+        );
+
+
+    if (!tableBody) {
+        console.error(
+            "Healers table body not found."
+        );
+        return;
+    }
+
+
+    // Reset states
+
+    if (loadingState) {
+        loadingState.style.display = "block";
+    }
+
+    if (errorState) {
+        errorState.style.display = "none";
+    }
+
+    if (emptyState) {
+        emptyState.style.display = "none";
+    }
+
+    if (tableContainer) {
+        tableContainer.style.display = "none";
+    }
+
+
+    try {
+
+        const { data, error } =
+            await db
+                .from("healers")
+                .select("*")
+                .order(
+                    "created_at",
+                    {
+                        ascending: false
+                    }
+                );
+
+
+        if (error) {
+            throw error;
+        }
+
+
+        healersData = data || [];
+
+
+        renderHealerSummary(
+            healersData
+        );
+
+
+        renderHealersTable(
+            healersData
+        );
+
+
+        if (loadingState) {
+            loadingState.style.display =
+                "none";
+        }
+
+
+        if (!healersData.length) {
+
+            if (emptyState) {
+                emptyState.style.display =
+                    "block";
+            }
+
+            return;
+        }
+
+
+        if (tableContainer) {
+            tableContainer.style.display =
+                "block";
+        }
+
+
+    } catch (error) {
+
+        console.error(
+            "Healers loading error:",
+            error
+        );
+
+
+        if (loadingState) {
+            loadingState.style.display =
+                "none";
+        }
+
+
+        if (errorState) {
+
+            errorState.textContent =
+                "Failed to load healers. Please try again.";
+
+            errorState.style.display =
+                "block";
+        }
+    }
+}
+
+
+// -----------------------------------------
+// HEALER SUMMARY
+// -----------------------------------------
+
+function renderHealerSummary(data) {
+
+    const totalHealers =
+        document.getElementById(
+            "totalHealers"
+        );
+
+    const activeHealers =
+        document.getElementById(
+            "activeHealers"
+        );
+
+    const inactiveHealers =
+        document.getElementById(
+            "inactiveHealers"
+        );
+
+    const healerLanguages =
+        document.getElementById(
+            "healerLanguages"
+        );
+
+
+    const total =
+        data.length;
+
+
+    const active =
+        data.filter(
+            healer =>
+                healer.status === true
+        ).length;
+
+
+    const inactive =
+        total - active;
+
+
+    const languages = new Set();
+
+
+    data.forEach(
+        healer => {
+
+            if (!healer.languages) {
+                return;
+            }
+
+
+            healer.languages
+                .split(",")
+                .map(
+                    language =>
+                        language.trim()
+                )
+                .filter(Boolean)
+                .forEach(
+                    language =>
+                        languages.add(
+                            language
+                        )
+                );
+        }
+    );
+
+
+    if (totalHealers) {
+        totalHealers.textContent =
+            total;
+    }
+
+
+    if (activeHealers) {
+        activeHealers.textContent =
+            active;
+    }
+
+
+    if (inactiveHealers) {
+        inactiveHealers.textContent =
+            inactive;
+    }
+
+
+    if (healerLanguages) {
+        healerLanguages.textContent =
+            languages.size;
+    }
+}
+
+
+// -----------------------------------------
+// RENDER HEALERS TABLE
+// -----------------------------------------
+
+function renderHealersTable(data) {
+
+    const tableBody =
+        document.getElementById(
+            "healersTableBody"
+        );
+
+
+    if (!tableBody) {
+        return;
+    }
+
+
+    tableBody.innerHTML = "";
+
+
+    data.forEach(
+        healer => {
+
+            const row =
+                document.createElement(
+                    "tr"
+                );
+
+
+            const photo =
+                healer.show_photo &&
+                healer.photo_url
+                    ? `
+                        <img
+                            src="${escapeHtml(
+                                healer.photo_url
+                            )}"
+                            alt="${escapeHtml(
+                                healer.name ||
+                                "Healer"
+                            )}"
+                            style="
+                                width:44px;
+                                height:44px;
+                                border-radius:50%;
+                                object-fit:cover;
+                            "
+                        >
+                      `
+                    : `
+                        <div style="
+                            width:44px;
+                            height:44px;
+                            border-radius:50%;
+                            display:flex;
+                            align-items:center;
+                            justify-content:center;
+                            background:#f0f0f0;
+                            font-size:20px;
+                        ">
+                            👤
+                        </div>
+                      `;
+
+
+            const status =
+                healer.status === true
+                    ? `
+                        <span
+                            class="status-badge payment-completed"
+                        >
+                            Active
+                        </span>
+                      `
+                    : `
+                        <span
+                            class="status-badge payment-pending"
+                        >
+                            Inactive
+                        </span>
+                      `;
+
+
+            row.innerHTML = `
+
+                <td>
+                    ${photo}
+                </td>
+
+                <td>
+                    <strong>
+                        ${escapeHtml(
+                            healer.name ||
+                            "—"
+                        )}
+                    </strong>
+                </td>
+
+                <td>
+                    ${escapeHtml(
+                        healer.experience ||
+                        "—"
+                    )}
+                </td>
+
+                <td>
+                    ${escapeHtml(
+                        healer.languages ||
+                        "—"
+                    )}
+                </td>
+
+                <td>
+                    ${escapeHtml(
+                        healer.whatsapp ||
+                        "—"
+                    )}
+                </td>
+
+                <td>
+                    ${escapeHtml(
+                        healer.timings ||
+                        "—"
+                    )}
+                </td>
+
+                <td>
+                    ${status}
+                </td>
+
+                <td>
+
+                    <button
+                        type="button"
+                        class="view-btn"
+                        onclick="viewHealer('${healer.id}')"
+                    >
+                        View
+                    </button>
+
+                </td>
+
+            `;
+
+
+            tableBody.appendChild(
+                row
+            );
+        }
+    );
+}
+
+
+// -----------------------------------------
+// VIEW HEALER
+// -----------------------------------------
+
+function viewHealer(healerId) {
+
+    const healer =
+        healersData.find(
+            item =>
+                item.id === healerId
+        );
+
+
+    if (!healer) {
+        console.error(
+            "Healer not found:",
+            healerId
+        );
+        return;
+    }
+
+
+    alert(
+        "Healer: " +
+        (healer.name || "—") +
+        "\n\n" +
+        "Experience: " +
+        (healer.experience || "—") +
+        "\n" +
+        "Languages: " +
+        (healer.languages || "—") +
+        "\n" +
+        "WhatsApp: " +
+        (healer.whatsapp || "—") +
+        "\n" +
+        "Timings: " +
+        (healer.timings || "—")
+    );
+}
+
+
+// -----------------------------------------
+// HEALERS NAVIGATION
+// -----------------------------------------
+
+const healersNav =
+    document.getElementById(
+        "healersNav"
+    );
+
+const refreshHealersBtn =
+    document.getElementById(
+        "refreshHealersBtn"
+    );
+
+
+if (healersNav) {
+
+    healersNav.addEventListener(
+        "click",
+        openHealersSection
+    );
+}
+
+
+if (refreshHealersBtn) {
+
+    refreshHealersBtn.addEventListener(
+        "click",
+        loadHealers
+    );
+}
