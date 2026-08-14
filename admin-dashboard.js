@@ -530,11 +530,9 @@ function openBookingModal(booking) {
         return;
     }
 
-
     modalBookingRef.textContent =
         booking.booking_ref ||
         shortId(booking.id);
-
 
     bookingDetails.innerHTML = `
 
@@ -612,14 +610,83 @@ function openBookingModal(booking) {
             formatDateTime(booking.created_at)
         )}
 
-    `;
+        <div style="
+            margin-top: 20px;
+            padding-top: 18px;
+            border-top: 1px solid #e5e7eb;
+        ">
 
+            <div style="
+                font-size: 14px;
+                font-weight: 600;
+                margin-bottom: 12px;
+                color: #374151;
+            ">
+                Admin Actions
+            </div>
+
+            <div style="
+                display: flex;
+                gap: 10px;
+                flex-wrap: wrap;
+            ">
+
+                ${
+                    booking.payment_status === "Pending"
+                        ? `
+                            <button
+                                type="button"
+                                onclick="confirmPayment('${booking.id}')"
+                                style="
+                                    padding: 10px 16px;
+                                    border: none;
+                                    border-radius: 8px;
+                                    background: #16a34a;
+                                    color: white;
+                                    font-size: 14px;
+                                    font-weight: 600;
+                                    cursor: pointer;
+                                "
+                            >
+                                Confirm Payment
+                            </button>
+                          `
+                        : ""
+                }
+
+                ${
+                    booking.status === "New"
+                        ? `
+                            <button
+                                type="button"
+                                onclick="confirmAppointment('${booking.id}')"
+                                style="
+                                    padding: 10px 16px;
+                                    border: none;
+                                    border-radius: 8px;
+                                    background: #2563eb;
+                                    color: white;
+                                    font-size: 14px;
+                                    font-weight: 600;
+                                    cursor: pointer;
+                                "
+                            >
+                                Confirm Appointment
+                            </button>
+                          `
+                        : ""
+                }
+
+            </div>
+
+        </div>
+
+    `;
 
     bookingModal.style.display = "block";
 
     document.body.style.overflow = "hidden";
 }
-
 
 // =========================================
 // DETAIL ROW
