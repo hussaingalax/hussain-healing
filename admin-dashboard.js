@@ -1417,15 +1417,29 @@ function renderPaymentsTable(data) {
 
             <td>
 
+    ${
+        normalizeStatus(paymentStatus) === "pending"
+            ? `
                 <button
                     type="button"
                     class="view-btn"
-                    onclick="openPaymentBooking('${booking.id}')"
+                    onclick="confirmPayment('${booking.id}')"
                 >
-                    View
+                    Confirm Payment
                 </button>
+              `
+            : `
+                <span style="
+                    color: #16a34a;
+                    font-weight: 600;
+                    font-size: 13px;
+                ">
+                    ✓ Confirmed
+                </span>
+              `
+    }
 
-            </td>
+</td>
         `;
 
 
