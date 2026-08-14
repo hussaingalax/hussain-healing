@@ -500,18 +500,25 @@
             </p>
         </div>
 
-        <div class="section-actions">
+       <div class="section-actions">
 
-            <button
-                id="refreshHealersBtn"
-                class="refresh-btn"
-                type="button"
-            >
-                ↻ Refresh
-            </button>
+    <button
+        id="addHealerBtn"
+        class="refresh-btn"
+        type="button"
+    >
+        + Add Healer
+    </button>
 
-        </div>
+    <button
+        id="refreshHealersBtn"
+        class="refresh-btn"
+        type="button"
+    >
+        ↻ Refresh
+    </button>
 
+</div>
     </div>
 
 
@@ -738,7 +745,258 @@
 
     </div>
 
+<!-- =========================================
+     ADD HEALER MODAL
+     ========================================= -->
 
+<div
+    id="addHealerModal"
+    class="modal"
+    style="display: none;"
+>
+
+    <div
+        class="modal-overlay"
+        id="addHealerOverlay"
+    ></div>
+
+    <div class="modal-card">
+
+        <div class="modal-header">
+
+            <div>
+                <h2>Add New Healer</h2>
+
+                <p>
+                    Add healer details to the platform
+                </p>
+            </div>
+
+            <button
+                id="closeAddHealerBtn"
+                class="close-modal"
+                type="button"
+            >
+                ×
+            </button>
+
+        </div>
+
+
+        <form id="addHealerForm">
+
+            <div class="booking-details">
+
+
+                <!-- Name -->
+
+                <div class="form-group">
+
+                    <label for="healerName">
+                        Healer Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="healerName"
+                        name="name"
+                        placeholder="Enter healer name"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- Experience -->
+
+                <div class="form-group">
+
+                    <label for="healerExperience">
+                        Experience
+                    </label>
+
+                    <input
+                        type="text"
+                        id="healerExperience"
+                        name="experience"
+                        placeholder="Example: 5+ Years"
+                    >
+
+                </div>
+
+
+                <!-- Languages -->
+
+                <div class="form-group">
+
+                    <label for="healerLanguagesInput">
+                        Languages
+                    </label>
+
+                    <input
+                        type="text"
+                        id="healerLanguagesInput"
+                        name="languages"
+                        placeholder="Example: Tamil, English"
+                    >
+
+                </div>
+
+
+                <!-- WhatsApp -->
+
+                <div class="form-group">
+
+                    <label for="healerWhatsapp">
+                        WhatsApp Number
+                    </label>
+
+                    <input
+                        type="tel"
+                        id="healerWhatsapp"
+                        name="whatsapp"
+                        placeholder="Example: 9876543210"
+                    >
+
+                </div>
+
+
+                <!-- Timings -->
+
+                <div class="form-group">
+
+                    <label for="healerTimings">
+                        Timings
+                    </label>
+
+                    <input
+                        type="text"
+                        id="healerTimings"
+                        name="timings"
+                        placeholder="Example: Monday - Friday | 12:00 PM - 7:00 PM"
+                    >
+
+                </div>
+
+
+                <!-- Photo URL -->
+
+                <div class="form-group">
+
+                    <label for="healerPhotoUrl">
+                        Photo URL
+                    </label>
+
+                    <input
+                        type="url"
+                        id="healerPhotoUrl"
+                        name="photo_url"
+                        placeholder="Paste healer photo URL"
+                    >
+
+                </div>
+
+
+                <!-- About -->
+
+                <div class="form-group">
+
+                    <label for="healerAbout">
+                        About Healer
+                    </label>
+
+                    <textarea
+                        id="healerAbout"
+                        name="about"
+                        rows="4"
+                        placeholder="Short description about the healer"
+                    ></textarea>
+
+                </div>
+
+
+                <!-- Status -->
+
+                <div class="form-group">
+
+                    <label>
+                        Status
+                    </label>
+
+                    <label style="
+                        display:flex;
+                        align-items:center;
+                        gap:8px;
+                    ">
+
+                        <input
+                            type="checkbox"
+                            id="healerStatus"
+                            checked
+                        >
+
+                        Active Healer
+
+                    </label>
+
+                </div>
+
+
+                <!-- Show Photo -->
+
+                <div class="form-group">
+
+                    <label>
+                        Photo Visibility
+                    </label>
+
+                    <label style="
+                        display:flex;
+                        align-items:center;
+                        gap:8px;
+                    ">
+
+                        <input
+                            type="checkbox"
+                            id="healerShowPhoto"
+                            checked
+                        >
+
+                        Show photo on website
+
+                    </label>
+
+                </div>
+
+
+            </div>
+
+
+            <div class="modal-footer">
+
+                <button
+                    type="button"
+                    id="cancelAddHealerBtn"
+                    class="modal-close-btn"
+                >
+                    Cancel
+                </button>
+
+                <button
+                    type="submit"
+                    id="saveHealerBtn"
+                    class="refresh-btn"
+                >
+                    Save Healer
+                </button>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
     <!-- =========================================
          SUPABASE
          ========================================= -->
