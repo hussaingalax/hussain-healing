@@ -1053,6 +1053,14 @@ async function openPaymentsSection() {
         paymentsNav.classList.add("active");
     }
 
+// Hide Booking summary cards on Payments page
+const mainSummaryGrid =
+    document.querySelector(".main-content > .summary-grid");
+
+if (mainSummaryGrid) {
+    mainSummaryGrid.style.display = "none";
+}
+    
     // Change page heading
     const pageTitle =
         document.querySelector(".top-header h1");
@@ -1080,6 +1088,14 @@ async function openPaymentsSection() {
 
 function openBookingsSection() {
 
+// Show Booking summary cards on Bookings page
+const mainSummaryGrid =
+    document.querySelector(".main-content > .summary-grid");
+
+if (mainSummaryGrid) {
+    mainSummaryGrid.style.display = "grid";
+}
+    
     const sections =
         document.querySelectorAll(".bookings-section");
 
