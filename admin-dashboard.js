@@ -2091,3 +2091,324 @@ if (refreshHealersBtn) {
         loadHealers
     );
 }
+
+// =========================================
+// ADD HEALER
+// =========================================
+
+const addHealerBtn =
+    document.getElementById("addHealerBtn");
+
+const addHealerModal =
+    document.getElementById("addHealerModal");
+
+const addHealerForm =
+    document.getElementById("addHealerForm");
+
+const closeAddHealerBtn =
+    document.getElementById("closeAddHealerBtn");
+
+const cancelAddHealerBtn =
+    document.getElementById("cancelAddHealerBtn");
+
+const addHealerOverlay =
+    document.getElementById("addHealerOverlay");
+
+
+// -----------------------------------------
+// OPEN ADD HEALER MODAL
+// -----------------------------------------
+
+if (addHealerBtn) {
+
+    addHealerBtn.addEventListener(
+        "click",
+        function () {
+
+            if (!addHealerModal) {
+                return;
+            }
+
+            addHealerForm.reset();
+
+            // Default values
+
+            const status =
+                document.getElementById(
+                    "healerStatus"
+                );
+
+            const showPhoto =
+                document.getElementById(
+                    "healerShowPhoto"
+                );
+
+            if (status) {
+                status.checked = true;
+            }
+
+            if (showPhoto) {
+                showPhoto.checked = true;
+            }
+
+            addHealerModal.style.display =
+                "block";
+
+            document.body.style.overflow =
+                "hidden";
+        }
+    );
+}
+
+
+// -----------------------------------------
+// CLOSE ADD HEALER MODAL
+// -----------------------------------------
+
+function closeAddHealerModal() {
+
+    if (addHealerModal) {
+        addHealerModal.style.display =
+            "none";
+    }
+
+    document.body.style.overflow = "";
+}
+
+
+if (closeAddHealerBtn) {
+
+    closeAddHealerBtn.addEventListener(
+        "click",
+        closeAddHealerModal
+    );
+}
+
+
+if (cancelAddHealerBtn) {
+
+    cancelAddHealerBtn.addEventListener(
+        "click",
+        closeAddHealerModal
+    );
+}
+
+
+if (addHealerOverlay) {
+
+    addHealerOverlay.addEventListener(
+        "click",
+        closeAddHealerModal
+    );
+}
+
+
+// -----------------------------------------
+// CREATE SLUG
+// -----------------------------------------
+
+function createHealerSlug(name) {
+
+    return name
+        .toLowerCase()
+        .trim()
+        .replace(/[^a-z0-9\s-]/g, "")
+        .replace(/\s+/g, "-")
+        .replace(/-+/g, "-");
+}
+
+
+// -----------------------------------------
+// SAVE HEALER
+// -----------------------------------------
+
+if (addHealerForm) {
+
+    addHealerForm.addEventListener(
+        "submit",
+        async function (event) {
+
+            event.preventDefault();
+
+
+            const saveButton =
+                document.getElementById(
+                    "saveHealerBtn"
+                );
+
+
+            const name =
+                document.getElementById(
+                    "healerName"
+                ).value.trim();
+
+
+            const experience =
+                document.getElementById(
+                    "healerExperience"
+                ).value.trim();
+
+
+            const languages =
+                document.getElementById(
+                    "healerLanguagesInput"
+                ).value.trim();
+
+
+            const whatsapp =
+                document.getElementById(
+                    "healerWhatsapp"
+                ).value.trim();
+
+
+            const timings =
+                document.getElementById(
+                    "healerTimings"
+                ).value.trim();
+
+
+            const photoUrl =
+                document.getElementById(
+                    "healerPhotoUrl"
+                ).value.trim();
+
+
+            const about =
+                document.getElementById(
+                    "healerAbout"
+                ).value.trim();
+
+
+            const status =
+                document.getElementById(
+                    "healerStatus"
+                ).checked;
+
+
+            const showPhoto =
+                document.getElementById(
+                    "healerShowPhoto"
+                ).checked;
+
+
+            if (!name) {
+
+                alert(
+                    "Please enter healer name."
+                );
+
+                return;
+            }
+
+
+            const slug =
+                createHealerSlug(name);
+
+
+            if (!slug) {
+
+                alert(
+                    "Unable to create healer slug."
+                );
+
+                return;
+            }
+
+
+            // Prevent double click
+
+            if (saveButton) {
+
+                saveButton.disabled =
+                    true;
+
+                saveButton.textContent =
+                    "Saving...";
+            }
+
+
+            try {
+
+                const { data, error } =
+                    await db
+                        .from("healers")
+                        .insert([
+                            {
+                                name: name,
+                                slug: slug,
+                                experience:
+                                    experience || null,
+                                languages:
+                                    languages || null,
+                                photo_url:
+                                    photoUrl || null,
+                                about:
+                                    about || null,
+                                whatsapp:
+                                    whatsapp || null,
+                                timings:
+                                    timings || null,
+                                status: status,
+                                show_photo:
+                                    showPhoto
+                            }
+                        ])
+                        .select()
+                        .single();
+
+
+                if (error) {
+                    throw error;
+                }
+
+
+                console.log(
+                    "Healer added successfully:",
+                    data
+                );
+
+
+                alert(
+                    "Healer added successfully."
+                );
+
+
+                closeAddHealerModal();
+
+
+                // Reload healer list
+
+                await loadHealers();
+
+
+            } catch (error) {
+
+                console.error(
+                    "Add healer error:",
+                    error
+                );
+
+
+                alert(
+                    "Failed to add healer.\n\n" +
+                    (
+                        error.message ||
+                        "Please try again."
+                    )
+                );
+
+
+            } finally {
+
+                if (saveButton) {
+
+                    saveButton.disabled =
+                        false;
+
+                    saveButton.textContent =
+                        "Save Healer";
+                }
+            }
+        }
+    );
+}
