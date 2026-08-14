@@ -285,6 +285,201 @@
 
             </section>
 
+            <!-- =========================================
+                 PAYMENTS SECTION
+                 ========================================= -->
+
+            <section
+                id="paymentsSection"
+                class="bookings-section"
+                style="display: none;"
+            >
+
+                <div class="section-header">
+
+                    <div>
+                        <h2>Payments</h2>
+
+                        <p>
+                            Manage and verify customer payments
+                        </p>
+                    </div>
+
+                    <div class="section-actions">
+
+                        <button
+                            id="refreshPaymentsBtn"
+                            class="refresh-btn"
+                            type="button"
+                        >
+                            ↻ Refresh
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Payment Summary -->
+
+                <div
+                    class="summary-grid"
+                    style="margin-bottom: 24px;"
+                >
+
+                    <div class="summary-card">
+
+                        <span class="summary-label">
+                            Total Payments
+                        </span>
+
+                        <strong
+                            id="totalPayments"
+                            class="summary-number"
+                        >
+                            0
+                        </strong>
+
+                    </div>
+
+
+                    <div class="summary-card">
+
+                        <span class="summary-label">
+                            Payment Pending
+                        </span>
+
+                        <strong
+                            id="paymentsPending"
+                            class="summary-number"
+                        >
+                            0
+                        </strong>
+
+                    </div>
+
+
+                    <div class="summary-card">
+
+                        <span class="summary-label">
+                            Payment Confirmed
+                        </span>
+
+                        <strong
+                            id="paymentsConfirmed"
+                            class="summary-number"
+                        >
+                            0
+                        </strong>
+
+                    </div>
+
+
+                    <div class="summary-card">
+
+                        <span class="summary-label">
+                            Total Amount
+                        </span>
+
+                        <strong
+                            id="totalPaymentAmount"
+                            class="summary-number"
+                        >
+                            ₹0
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Payment Loading -->
+
+                <div
+                    id="paymentsLoadingState"
+                    class="loading-state"
+                    style="display: none;"
+                >
+                    Loading payments...
+                </div>
+
+
+                <!-- Payment Error -->
+
+                <div
+                    id="paymentsErrorState"
+                    class="error-state"
+                    style="display: none;"
+                >
+                </div>
+
+
+                <!-- Empty Payments -->
+
+                <div
+                    id="paymentsEmptyState"
+                    class="empty-state"
+                    style="display: none;"
+                >
+
+                    <div class="empty-icon">
+                        💳
+                    </div>
+
+                    <h3>No payments found</h3>
+
+                    <p>
+                        Customer payment records will appear here.
+                    </p>
+
+                </div>
+
+
+                <!-- Payments Table -->
+
+                <div
+                    id="paymentsTableContainer"
+                    class="table-container"
+                    style="display: none;"
+                >
+
+                    <table>
+
+                        <thead>
+
+                            <tr>
+
+                                <th>Booking</th>
+
+                                <th>Customer</th>
+
+                                <th>Transaction ID</th>
+
+                                <th>Date</th>
+
+                                <th>Session</th>
+
+                                <th>Amount</th>
+
+                                <th>Payment</th>
+
+                                <th>Action</th>
+
+                            </tr>
+
+                        </thead>
+
+                        <tbody
+                            id="paymentsTableBody"
+                        >
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </section>
+            
         </main>
 
     </div>
