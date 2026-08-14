@@ -689,6 +689,101 @@ function openBookingModal(booking) {
 }
 
 // =========================================
+// CONFIRM PAYMENT
+// =========================================
+
+async function confirmPayment(bookingId) {
+
+    if (!bookingId) {
+        return;
+    }
+
+    const confirmed = confirm(
+        "Are you sure you want to confirm this payment?"
+    );
+
+    if (!confirmed) {
+        return;
+    }
+
+    try {
+
+        const { data, error } = await db
+            .from("bookings")
+            .update({
+                payment_status: "Confirmed"
+            })
+            .eq("id", bookingId)
+            .select()
+            .single();
+
+        if (error) {
+            console.error("Payment update error:", error);
+            alert("Failed to confirm payment.");
+            return;
+        }
+
+        alert("Payment confirmed successfully.");
+
+        openBookingModal(data);
+
+    } catch (error) {
+
+        console.error("Payment confirmation error:", error);
+        alert("Something went wrong while confirming payment.");
+
+    }
+}
+
+
+// =========================================
+// CONFIRM APPOINTMENT
+// =========================================
+
+async function confirmAppointment(bookingId) {
+
+    if (!bookingId) {
+        return;
+    }
+
+    const confirmed = confirm(
+        "Are you sure you want to confirm this appointment?"
+    );
+
+    if (!confirmed) {
+        return;
+    }
+
+    try {
+
+        const { data, error } = await db
+            .from("bookings")
+            .update({
+                status: "Confirmed"
+            })
+            .eq("id", bookingId)
+            .select()
+            .single();
+
+        if (error) {
+            console.error("Appointment update error:", error);
+            alert("Failed to confirm appointment.");
+            return;
+        }
+
+        alert("Appointment confirmed successfully.");
+
+        openBookingModal(data);
+
+    } catch (error) {
+
+        console.error("Appointment confirmation error:", error);
+        alert("Something went wrong while confirming appointment.");
+
+    }
+}
+
+// =========================================
 // DETAIL ROW
 // =========================================
 
